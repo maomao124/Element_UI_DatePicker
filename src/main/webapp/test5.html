@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<!--
+Project name(项目名称)：Element_UI_DatePicker
+  File name(文件名): test5
+  Authors(作者）: mao
+  Author QQ：1296193245
+  GitHub：https://github.com/maomao124/
+  Date(创建日期)： 2022/4/29
+  Time(创建时间)： 22:36
+  Description(描述)： 无
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/element-ui.css">
+    <script src="js/vue.js"></script>
+    <script src="js/element-ui.js"></script>
+</head>
+<body>
+
+
+<div id="app">
+    <el-date-picker
+            type="monthrange"
+            v-model="value1"
+            start-placeholder="开始月份"
+            end-placeholder="结束月份"
+            @change="change(value1)">
+    </el-date-picker>
+    <el-date-picker
+            type="monthrange"
+            v-model="value2"
+            start-placeholder="开始月份"
+            end-placeholder="结束月份"
+            @change="change(value2)"
+            :picker-options="pickerOptions">
+    </el-date-picker>
+    <el-date-picker
+            unlink-panels
+            type="monthrange"
+            start-placeholder="开始月份"
+            end-placeholder="结束月份"
+            v-model="value2"
+            @change="change(value2)"
+            :picker-options="pickerOptions">
+    </el-date-picker>
+</div>
+
+<script>
+    var app = new Vue({
+            el: "#app",
+            data: {
+                value1: "",
+                value2: "",
+                pickerOptions:
+                    {
+                        shortcuts:
+                            [
+                                {
+                                    text: '本月',
+                                    onClick(picker)
+                                    {
+                                        picker.$emit('pick', [new Date(), new Date()]);
+                                    }
+                                },
+                                {
+                                    text: '今年至今',
+                                    onClick(picker)
+                                    {
+                                        const end = new Date();
+                                        const start = new Date(new Date().getFullYear(), 0);
+                                        picker.$emit('pick', [start, end]);
+                                    }
+                                },
+                                {
+                                    text: '最近六个月',
+                                    onClick(picker)
+                                    {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setMonth(start.getMonth() - 6);
+                                        picker.$emit('pick', [start, end]);
+                                    }
+                                },
+                                {
+                                    text: '最近一年',
+                                    onClick(picker)
+                                    {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setMonth(start.getMonth() - 12);
+                                        picker.$emit('pick', [start, end]);
+                                    }
+                                }
+                            ]
+                    },
+
+            },
+            methods: {
+                change: function (value)
+                {
+                    console.log(value)
+                },
+            },
+
+            mounted()
+            {
+
+            }
+        }
+    )
+</script>
+</body>
+</html>
