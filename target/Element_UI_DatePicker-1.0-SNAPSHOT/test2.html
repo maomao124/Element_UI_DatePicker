@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!--
+Project name(项目名称)：Element_UI_DatePicker
+  File name(文件名): test2
+  Authors(作者）: mao
+  Author QQ：1296193245
+  GitHub：https://github.com/maomao124/
+  Date(创建日期)： 2022/4/29
+  Time(创建时间)： 22:14
+  Description(描述)： 无
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/element-ui.css">
+    <script src="js/vue.js"></script>
+    <script src="js/element-ui.js"></script>
+</head>
+<body>
+
+
+<div id="app">
+    <el-date-picker
+            type="date"
+            v-model="value"
+            @change="change"
+            :picker-options="pickerOptions">
+    </el-date-picker>
+</div>
+
+<script>
+    var app = new Vue({
+            el: "#app",
+            data: {
+                value: "",
+                pickerOptions:
+                    {
+                        disabledDate(time)
+                        {
+                            return time.getTime() > Date.now();
+                        },
+                        shortcuts:
+                            [
+                                {
+                                    text: '今天',
+                                    onClick(picker)
+                                    {
+                                        picker.$emit('pick', new Date());
+                                    }
+                                },
+                                {
+                                    text: '昨天',
+                                    onClick(picker)
+                                    {
+                                        const date = new Date();
+                                        date.setTime(date.getTime() - 3600 * 1000 * 24);
+                                        picker.$emit('pick', date);
+                                    }
+                                },
+                                {
+                                    text: '一周前',
+                                    onClick(picker)
+                                    {
+                                        const date = new Date();
+                                        date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                                        picker.$emit('pick', date);
+                                    }
+                                }
+                            ]
+                    },
+            },
+            methods: {
+                change: function ()
+                {
+                    console.log(this.value)
+                },
+            },
+
+            mounted()
+            {
+
+            }
+        }
+    )
+</script>
+</body>
+</html>
